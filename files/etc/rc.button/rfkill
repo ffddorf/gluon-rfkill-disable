@@ -1,0 +1,5 @@
+#!/bin/bash
+
+echo "WiFi On/Off pressed. Doing nothing." > /dev/console 
+
+return 0
