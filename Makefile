@@ -1,18 +1,35 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=rfkill-disable
-PKG_VERSION:=0.1
-PKG_RELEASE:=1
+PKG_VERSION:=1
 
-include $(INCLUDE_DIR)/package.mk
+PKG_BUILD_DIR := $(BUILD_DIR)/$(PKG_NAME)
 
 define Package/rfkill-disable
-  SECTION:=tool
-  CATEGORY:=Hacks
-  TITLE:=Disable the function of the wifi on/off switch
+  SECTION:=tools
+  CATEGORY:=Tools
+  TITLE:=Disable the function of the wifi on/off button
+endef
+
+define Package/gluon-migrate-vpn/description
+	Overrides the openwrt rfkill script, rendering the wifi on/off button without function
+endef
+
+define Build/Prepare
+	mkdir -p $(PKG_BUILD_DIR)
+endef
+
+define Build/Configure
+endef
+
+define Build/Compile
 endef
 
 define Package/rfkill-disable/install
-	$(INSTALL_DIR) $(1)/etc/rc.button
-	$(INSTALL_DATA) ./files/etc/rc.button/rfkill $(1)/etc/rc.button/rfkill
+	$(CP) ./files/* $(1)/
 endef
+
+define Package/gluon-migrate-vpn/postinst
+endef
+
+$(eval $(call BuildPackage,rfkill-disable))
